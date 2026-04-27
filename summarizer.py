@@ -3,8 +3,13 @@ from heapq import nlargest
 from spacy.lang.en.stop_words import STOP_WORDS
 from string import punctuation
 
-nlp = spacy.load("en_core_web_sm")
-
+# ✅ Load model safely
+try:
+    nlp = spacy.load("en_core_web_sm")
+except:
+    import os
+    os.system("python -m spacy download en_core_web_sm")
+    nlp = spacy.load("en_core_web_sm")
 def summarize_text(text, ratio=0.3):
     doc = nlp(text)
     
