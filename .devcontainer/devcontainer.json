@@ -1,0 +1,5 @@
+{
+  "name": "NLP App",
+  "image": "mcr.microsoft.com/devcontainers/python:3.11",
+  "postCreateCommand": "pip install -r requirements.txt && python -m nltk.downloader stopwords && python -m spacy download en_core_web_sm"
+}
