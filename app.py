@@ -15,9 +15,16 @@ from bert_model import bert_predict
 # =========================
 # 🔹 LOAD MODELS
 # =========================
-model = pickle.load(open("model.pkl", "rb"))
-vectorizer = pickle.load(open("vectorizer.pkl", "rb"))
+import streamlit as st
+import pickle
 
+@st.cache_resource
+def load_ml_model():
+    model = pickle.load(open("model.pkl", "rb"))
+    vectorizer = pickle.load(open("vectorizer.pkl", "rb"))
+    return model, vectorizer
+
+model, vectorizer = load_ml_model()
 # =========================
 # 🔹 PAGE CONFIG
 # =========================
