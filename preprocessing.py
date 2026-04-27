@@ -3,9 +3,13 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 
+# ✅ Download required data
+nltk.download('stopwords')
+
 ps = PorterStemmer()
 stop_words = set(stopwords.words('english'))
 
+# keep "not"
 if 'not' in stop_words:
     stop_words.remove('not')
 
