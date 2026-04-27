@@ -3,18 +3,39 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 
-# ✅ Download required data
-nltk.download('stopwords')
+# =========================
+# 🔹 Ensure stopwords available
+# =========================
+try:
+    nltk.data.find('corpora/stopwords')
+except LookupError:
+    nltk.download('stopwords')
 
+# =========================
+# 🔹 Initialize tools
+# =========================
 ps = PorterStemmer()
+
 stop_words = set(stopwords.words('english'))
 
-# keep "not"
+# keep "not" for sentiment meaning
 if 'not' in stop_words:
     stop_words.remove('not')
 
+# =========================
+# 🔹 Text Cleaning Function
+# =========================
 def clean_text(text):
+    if not text or not isinstance(text, str):
+        return ""
+
+    # Remove non-letters
     text = re.sub('[^a-zA-Z]', ' ', text)
-    text = text.lower().split()
-    text = [ps.stem(word) for word in text if word not in stop_words]
-    return ' '.join(text)
+
+    # Lowercase + tokenize
+    words = text.lower().split()
+
+    # Remove stopwords + stemming
+    words = [ps.stem(word) for word in words if word not in stop_words]
+
+    return ' '.join(words)
